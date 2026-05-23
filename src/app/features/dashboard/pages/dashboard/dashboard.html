@@ -1,1 +1,38 @@
-<p>dashboard works!</p>
+<div class="dashboard-container">
+  <div class="hero-section">
+    <div>
+      <h1>
+        Bienvenido
+      </h1>
+
+      <p>
+        Gestiona tus reservas y consulta disponibilidad.
+      </p>
+    </div>
+  </div>
+
+  <div class="cards-grid">
+    <mat-card class="dashboard-card">
+      <mat-icon> event_available</mat-icon>
+
+      <h2>Reservas</h2>
+      <p> Consulta y administra tus reservas.</p>
+
+      <button mat-flat-button color="primary"  (click)="goToReservas()">
+        Ir a reservas
+      </button>
+    </mat-card>
+
+    <mat-card class="dashboard-card">
+      <mat-icon>beach_access</mat-icon>
+
+      <h2>
+        Sedes turísticas
+      </h2>
+
+      <p>
+        Explora los destinos disponibles.
+      </p>
+    </mat-card>
+  </div>
+</div>

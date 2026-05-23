@@ -1,1 +1,68 @@
-<p>login works!</p>
+<div class="login-container">
+  <div class="overlay"></div>
+  <mat-card class="login-card glass-card">
+    <div class="header">
+      <div class="logo-container">
+        <mat-icon>
+          travel_explore
+        </mat-icon>
+      </div>
+
+      <h1>
+        {{ appTexts.appName }}
+      </h1>
+
+      <p>
+        {{ authTexts.loginTitle }}
+      </p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="outline">
+        <mat-label>
+          {{ authTexts.email }}
+        </mat-label>
+
+        <input matInput type="email" formControlName="correo">
+
+        <mat-icon matSuffix>
+          mail
+        </mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>
+          {{ authTexts.password }}
+        </mat-label>
+
+        <input matInput [type]="hidePassword()? 'password' : 'text' " formControlName="password">
+
+        <button mat-icon-button matSuffix type="button" (click)=" hidePassword.set(!hidePassword()) ">
+          <mat-icon> {{ hidePassword() ? 'visibility_off' : 'visibility' }}
+          </mat-icon>
+        </button>
+      </mat-form-field>
+
+      <button mat-flat-button class="login-button" type="submit" [disabled]="loading()">
+        @if(!loading()) {
+        <span>
+          {{ authTexts.loginButton }}
+        </span>
+        }
+        @else
+        {
+        <mat-spinner diameter="22"></mat-spinner>
+        }
+
+      </button>
+    </form>
+
+    <div class="footer">
+      <span> ¿No tienes cuenta?</span>
+      <a routerLink="/auth/register">Crear cuenta</a>
+
+    </div>
+
+  </mat-card>
+
+</div>
