@@ -37,7 +37,7 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        loadComponent: () => import('./features/reservas/pages/reservas/reservas').then(m => m.Reservas)
+        loadComponent: () => import('./features/reservas/pages/reservas/reservas.component').then(m => m.Reservas)
       }
     ]
   }

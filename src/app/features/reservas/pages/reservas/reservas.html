@@ -1,1 +1,58 @@
-<p>reservas works!</p>
+<mat-card>
+  <mat-card-title>Mis reservas</mat-card-title>
+  <mat-card-content>
+    @if (loading()) {
+    <div>Cargando reservas...</div>
+    } @else {
+
+    @if (reservas().length === 0) {
+    <div>No hay reservas aún.</div>
+    } @else {
+
+    <mat-card-content>
+      @for (r of reservas(); track r.id) {
+      <mat-card style="display:grid">
+        <div style="width:100%">
+          <div style="display:grid;justify-content:space-between">
+            <strong>{{ r.sede  }}</strong>
+            <span>{{ r.estadoReserva }}</span>
+            <span>{{ r.alojamiento }}</span>
+            <span>{{ r.cantidadPersonas }}</span>
+            <span>{{ r.fechaInicio | date:'short' }}</span>
+            <span>{{ r.fechaFin | date:'short' }}</span>
+            <span>{{ r.valorTotal | currency }}</span>
+          </div>
+        </div>
+      </mat-card>
+      }
+    </mat-card-content>
+    }
+    }
+  </mat-card-content>
+</mat-card>
+
+<mat-card style="margin-top:16px">
+  <mat-card-title>Nueva reserva</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="reservaForm" (ngSubmit)="onSubmit()">
+      <mat-form-field appearance="fill" style="width:100%">
+        <mat-label>Fecha</mat-label>
+        <input matInput type="datetime-local" formControlName="fecha">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" style="width:100%">
+        <mat-label>Descripción</mat-label>
+        <input matInput formControlName="descripcion">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" style="width:100%">
+        <mat-label>Monto</mat-label>
+        <input matInput type="number" formControlName="monto">
+      </mat-form-field>
+
+      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
+        <button mat-flat-button color="primary" type="submit" [disabled]="creating()">Crear</button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>
