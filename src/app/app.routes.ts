@@ -21,12 +21,24 @@ export const routes: Routes = [
   {
     canActivate: [ authGuard ],
     path: 'dashboard',
-    loadComponent: () => import('./features/dashboard/pages/dashboard/dashboard.component').then(m => m.DashboardComponent)
+    loadComponent: () => import('./core/layouts/main-layout-component/main-layout.component').then(m => m.MainLayoutComponent),
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('./features/dashboard/pages/dashboard/dashboard.component').then(m => m.DashboardComponent)
+      }
+    ]
   },
 
   {
     canActivate: [ authGuard ],
     path: 'reservas',
-    loadComponent: () => import('./features/reservas/pages/reservas/reservas').then(m => m.Reservas)
+    loadComponent: () => import('./core/layouts/main-layout-component/main-layout.component').then(m => m.MainLayoutComponent),
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('./features/reservas/pages/reservas/reservas').then(m => m.Reservas)
+      }
+    ]
   }
 ];
