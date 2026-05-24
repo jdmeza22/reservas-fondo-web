@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
+
   {
     path: '',
     redirectTo: 'auth/login',
@@ -10,35 +11,49 @@ export const routes: Routes = [
 
   {
     path: 'auth/login',
-    loadComponent: () => import('./features/auth/pages/login/login.component').then(m => m.LoginComponent)
+
+    loadComponent: () =>
+      import('./features/auth/pages/login/login.component')
+        .then(m => m.LoginComponent)
   },
 
   {
     path: 'auth/register',
-    loadComponent: () => import('./features/auth/pages/register/register').then(m => m.Register)
+
+    loadComponent: () =>
+      import('./features/auth/pages/register/register')
+        .then(m => m.Register)
   },
 
   {
-    canActivate: [ authGuard ],
-    path: 'dashboard',
-    loadComponent: () => import('./core/layouts/main-layout-component/main-layout.component').then(m => m.MainLayoutComponent),
+    path: '',
+    canActivate: [authGuard],
+    canMatch: [authGuard],
+
+    loadComponent: () =>
+      import('./core/layouts/main-layout-component/main-layout.component')
+        .then(m => m.MainLayoutComponent),
+
     children: [
       {
-        path: '',
-        loadComponent: () => import('./features/dashboard/pages/dashboard/dashboard.component').then(m => m.DashboardComponent)
+        path: 'dashboard',
+
+        loadComponent: () =>
+          import('./features/dashboard/pages/dashboard/dashboard.component')
+            .then(m => m.DashboardComponent)
+      },
+      {
+        path: 'reservas',
+
+        loadComponent: () =>
+          import('./features/reservas/pages/reservas/reservas.component')
+            .then(m => m.Reservas)
       }
     ]
   },
 
   {
-    canActivate: [ authGuard ],
-    path: 'reservas',
-    loadComponent: () => import('./core/layouts/main-layout-component/main-layout.component').then(m => m.MainLayoutComponent),
-    children: [
-      {
-        path: '',
-        loadComponent: () => import('./features/reservas/pages/reservas/reservas.component').then(m => m.Reservas)
-      }
-    ]
+    path: '**',
+    redirectTo: 'auth/login'
   }
 ];

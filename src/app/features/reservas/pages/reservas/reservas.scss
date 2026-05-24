@@ -1,0 +1,155 @@
+.reservas-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.header {
+  h1 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #0f172a;
+  }
+
+  p {
+    margin-top: 8px;
+    color: #64748b;
+  }
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: 60px;
+  color: #64748b;
+}
+
+.empty-card {
+  padding: 48px;
+  text-align: center;
+  border-radius: 24px;
+
+  mat-icon {
+    font-size: 64px;
+    width: 64px;
+    height: 64px;
+    color: #94a3b8;
+  }
+
+  h2 {
+    margin-top: 16px;
+  }
+
+  p {
+    color: #64748b;
+  }
+}
+
+.reservas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+  gap: 24px;
+}
+
+.reserva-card {
+  border-radius: 24px;
+  padding: 24px;
+  transition:transform .2s ease,box-shadow .2s ease;
+  border: 1px solid #e2e8f0;
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 30px rgba(0,0,0,.08);
+  }
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  margin-bottom: 24px;
+}
+
+.sede-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+
+  h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #0f172a;
+  }
+
+  span {
+    color: #64748b;
+  }
+}
+
+.sede-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  color: white;
+}
+
+.estado-badge {
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: .85rem;
+  font-weight: 600;
+}
+
+.pendiente {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.confirmada {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.cancelada {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #334155;
+
+  mat-icon {
+    color: #2563eb;
+  }
+}
+
+.total {
+  margin-top: 8px;
+  strong { font-size: 1.2rem; color: #0f172a;
+ }
+}
+
+.card-footer {
+  margin-top: 24px;
+
+  button {
+    width: 100%;
+    height: 46px;
+    border-radius: 14px;
+  }
+}

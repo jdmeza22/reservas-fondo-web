@@ -10,6 +10,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { ReservaService } from '../../../../core/services/reserva.service';
 import { Reserva } from '../../models/reserva.interface';
+import { MatIcon } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-reservas',
@@ -18,6 +20,7 @@ import { Reserva } from '../../models/reserva.interface';
     CommonModule,
     ReactiveFormsModule,
 
+    MatIcon,
     MatCardModule,
     MatFormFieldModule,
     MatInputModule,
@@ -34,6 +37,7 @@ export class Reservas {
   private readonly _fb = inject(FormBuilder);
   private readonly _reservaService = inject(ReservaService);
   private readonly _snackBar = inject(MatSnackBar);
+  private readonly _dialog = inject(MatDialog);
 
   reservas = signal<Reserva[]>([]);
   loading = signal(false);
@@ -76,7 +80,7 @@ export class Reservas {
       next: (resp) => {
         const created = resp.data;
         this.reservas.update(list => [created, ...list]);
-        this.reservaForm.reset({fecha: this.formatForInput(new Date()), descripcion: '', monto: 0});
+        this.reservaForm.reset({ fecha: this.formatForInput(new Date()), descripcion: '', monto: 0 });
         this._snackBar.open('Reserva creada', 'Cerrar', { duration: 3000 });
         this.creating.set(false);
       },
@@ -86,4 +90,5 @@ export class Reservas {
       }
     });
   }
+
 }

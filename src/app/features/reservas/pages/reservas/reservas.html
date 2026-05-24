@@ -1,58 +1,90 @@
-<mat-card>
-  <mat-card-title>Mis reservas</mat-card-title>
-  <mat-card-content>
-    @if (loading()) {
-    <div>Cargando reservas...</div>
-    } @else {
+<div class="reservas-page">
+  <div class="header">
+    <div>
+      <h1> Mis reservas</h1>
+      <p> Consulta y administra tus reservas.</p>
+    </div>
 
-    @if (reservas().length === 0) {
-    <div>No hay reservas aún.</div>
-    } @else {
+  </div>
 
-    <mat-card-content>
-      @for (r of reservas(); track r.id) {
-      <mat-card style="display:grid">
-        <div style="width:100%">
-          <div style="display:grid;justify-content:space-between">
-            <strong>{{ r.sede  }}</strong>
-            <span>{{ r.estadoReserva }}</span>
-            <span>{{ r.alojamiento }}</span>
-            <span>{{ r.cantidadPersonas }}</span>
-            <span>{{ r.fechaInicio | date:'short' }}</span>
-            <span>{{ r.fechaFin | date:'short' }}</span>
-            <span>{{ r.valorTotal | currency }}</span>
+  @if (loading()) {
+  <div class="loading-container">
+    <mat-spinner diameter="45"></mat-spinner>
+    <span>
+      Cargando reservas...
+    </span>
+  </div>
+  } @else {
+
+  @if (reservas().length === 0) {
+  <mat-card class="empty-card">
+    <mat-icon>
+      event_busy
+    </mat-icon>
+
+    <h2>No tienes reservas</h2>
+    <p> Aún no has realizado reservas. </p>
+  </mat-card>
+
+  } @else {
+
+  <div class="reservas-grid">
+    @for (r of reservas(); track r.id) {
+    <mat-card class="reserva-card">
+      <div class="card-header">
+        <div class="sede-info">
+          <div class="sede-icon">
+            <mat-icon>
+              beach_access
+            </mat-icon>
           </div>
+
+          <div>
+            <h2>{{ r.sede }}</h2>
+            <span> {{ r.alojamiento }}</span>
+          </div>
+
         </div>
-      </mat-card>
-      }
-    </mat-card-content>
-    }
-    }
-  </mat-card-content>
-</mat-card>
-
-<mat-card style="margin-top:16px">
-  <mat-card-title>Nueva reserva</mat-card-title>
-  <mat-card-content>
-    <form [formGroup]="reservaForm" (ngSubmit)="onSubmit()">
-      <mat-form-field appearance="fill" style="width:100%">
-        <mat-label>Fecha</mat-label>
-        <input matInput type="datetime-local" formControlName="fecha">
-      </mat-form-field>
-
-      <mat-form-field appearance="fill" style="width:100%">
-        <mat-label>Descripción</mat-label>
-        <input matInput formControlName="descripcion">
-      </mat-form-field>
-
-      <mat-form-field appearance="fill" style="width:100%">
-        <mat-label>Monto</mat-label>
-        <input matInput type="number" formControlName="monto">
-      </mat-form-field>
-
-      <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:8px">
-        <button mat-flat-button color="primary" type="submit" [disabled]="creating()">Crear</button>
+        <div class="estado-badge" [class.pendiente]="
+                  r.estadoReserva === 'Pendiente'
+                " [class.cancelada]="
+                  r.estadoReserva === 'Cancelada'
+                " [class.confirmada]="
+                  r.estadoReserva === 'Confirmada'">
+          {{ r.estadoReserva }}
+        </div>
       </div>
-    </form>
-  </mat-card-content>
-</mat-card>
+
+      <div class="card-content">
+        <div class="info-item">
+          <mat-icon> groups </mat-icon>
+
+          <span> {{ r.cantidadPersonas }} personas </span>
+        </div>
+
+        <div class="info-item">
+          <mat-icon> calendar_month  </mat-icon>
+
+          <span>  {{ r.fechaInicio | date:'dd MMM yyyy' }} -
+            {{ r.fechaFin | date:'dd MMM yyyy'}}
+          </span>
+        </div>
+
+        <div class="info-item total">
+          <mat-icon>payments </mat-icon>
+
+          <strong> {{ r.valorTotal | currency:'COP':'symbol':'1.0-0' }} </strong>
+        </div>
+      </div>
+
+      <div class="card-footer">
+        <button mat-flat-button >
+          Editar reserva
+        </button>
+      </div>
+    </mat-card>
+    }
+  </div>
+  }
+  }
+</div>
